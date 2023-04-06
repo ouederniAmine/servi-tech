@@ -7,9 +7,18 @@ import axios from "axios";
 const SoumissionsTable = (props) => {
   const [data, setData] = useState([]);
   
+  const [id, setId] = useState(0);
 
 
   useEffect(() => {
+    axios.get("/backend/api/last-soumission").then((res) => {
+      console.log(res.data);
+
+      let id = res.data[0].id;
+    
+      setId(id);
+      console.log(id);
+  })
       axios
       .get("/backend/api/soumissions")
       .then((res) => {
@@ -126,7 +135,7 @@ const SoumissionsTable = (props) => {
  <div className="datatableTitle">
          Soumissions
          <div>
-         <Link to={ "new"} className="link">
+         <Link to={ "new/"+(id+1 ) } className="link">
           Add New Soumission
         </Link>
 </div>

@@ -70,7 +70,8 @@ const handlePrint = useReactToPrint({
       <div className="flex justify-between p-4">
         <div>
           <h6 className="font-bold">Telephone : <span className="text-sm font-medium"> {data[0].telephone}</span></h6>
-          <h6 className="font-bold">Nom du Client : <span className="text-sm font-medium"> {data[0].facture_a}</span></h6>
+          <h6 className="font-bold">Facturé à : <span className="text-sm font-medium"> {data[0].facture_a}</span></h6>
+          <h6 className="font-bold">Site Web : <span className="text-sm font-medium"> {data[0].site_web}</span></h6>
         </div>
         <div className="w-40">
           <address className="text-sm">
@@ -131,25 +132,25 @@ const handlePrint = useReactToPrint({
                         }
 
             
-              <tr >
-                <td colSpan={3} />
+              <tr   >
+                <td colSpan={2} />
                 <td className="text-sm font-bold">Sous Total</td>
                 <td className="text-sm font-bold tracking-wider"><b> {data[0].sous_total}</b></td>
               </tr>
               {/*end tr*/}
               <tr>
-                <th colSpan={3} />
+                <th colSpan={2} />
                 <td className="text-sm font-bold"><b>Tps 5%</b></td>
                 <td className="text-sm font-bold"><b> {data[0].tps}</b></td>
-              </tr>
+              </  tr>
               <tr>
-                <th colSpan={3} />
+                <th colSpan={2} />
                 <td className="text-sm font-bold"><b>TVQ 9%</b></td>
                 <td className="text-sm font-bold"><b> {data[0].tvq}</b></td>
               </tr>
               {/*end tr*/}
               <tr className="text-white bg-gray-800">
-                <th colSpan={3} />
+                <th colSpan={2} />
                 <td className="text-sm font-bold"><b>Total</b></td>
                 <td className="text-sm font-bold"><b> {data[0].total}</b></td>
               </tr>
@@ -161,10 +162,12 @@ const handlePrint = useReactToPrint({
       <div className="w-full h-0.5 bg-indigo-500" />
       <div className="p-4">
        
-        <div className="flex items-end justify-end space-x-3">
-          <button className="px-4 py-2 text-sm text-green-600 bg-green-100">Print</button>
-          
-        </div>
+        <div className="flex items-end  space-x-3">
+          <p>Terme a déterminier Chéque payable au nom de Pont Roulant Servi-Tech</p>
+          </div>
+          <p>Total du dans les 30 jours suivant le travail ou la livraison. Les comptes en souffrance sont soumis  à des frais de service de 3% par mois.</p>
+                        <h3 className="text-m font-bold">Merci de faire  affaire avec  nous !</h3>
+        
       </div>
     </div>
   </div>

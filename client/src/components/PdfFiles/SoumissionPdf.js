@@ -1,14 +1,39 @@
-import React from "react";
+import React , { useState, useEffect , useRef} from "react";
 import logo from "../../assets/logo white.png";
 import "./FacturePdf.css";
+import {useReactToPrint} from 'react-to-print';
+import axios from "axios";
 
 const SoumissionPdf = (props) => {
+  const [data, setData] = useState([{ "id": 1, "num_facture": 1, "nom_client": "Mohamed amine", "adresse": "tunis", "date_inspection": "El Ouederni", "appareil": "Mohamed amine", "emplacement": "El Ouederni", "capacite": "Mohamed amine", "palan": "El Ouederni", "manufacturier": "Mohamed amine", "model": "El Ouederni", "serie": "Mohamed amine", "chaine": "El Ouederni", "hauteur": "0", "charriot": "0", "commande_par": "Mohamed amine", "vp": "", "vc": "", "inscpecte_par": "El Ouederni" }]);
+  // state InspectionItems
+  const [soumissionItems , setSoumissionItems] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      // get the id from the url
+      const inspectionid = window.location.pathname.split("/")[3];
+      const result = await axios(
+        `/backend/api/soumissions/${inspectionid}`,
+      );
+      const inspectionItems = await axios(
+        `/backend/api/soumission_items/${inspectionid}`,
+      );
+      setSoumissionItems(inspectionItems.data);
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   
   return (
+    <>
   <div>
-  <div className="flex items-center justify-center min-h-screen bg-gray-100">
-    <div className="w-3/5 bg-white shadow-lg">
+  <div className="flex items-center justify-center min-h-screen bg-gray-100" >
+    <div className="w-3/5 bg-white shadow-lg"  ref={componentRef}> 
       <div className="flex justify-between p-4">
         <div> 
           <img src={logo} alt="logo"/>
@@ -40,31 +65,33 @@ const SoumissionPdf = (props) => {
       <div className="w-full h-0.5 bg-indigo-500" />
       <div className="flex justify-between p-4">
         <div>
-          <h6 className="font-bold">Numero de facture : <span className="text-sm font-medium"> 12/12/2022</span></h6>
-          <h6 className="font-bold">Nom du Client : <span className="text-sm font-medium"> 12/12/2022</span></h6>
+          <h6 className="font-bold">Company : <span className="text-sm font-medium"> {data[0].company}</span></h6>
+          <h6 className="font-bold">adresse : <span className="text-sm font-medium"> {data[0].adresse}</span></h6>
         </div>
         <div className="w-40">
           <address className="text-sm">
-            <span className="font-bold"> Adresse: </span>
-            Joe Smith
-            795 Folsom Ave
-            San Francisco, CA 94107
-            P: (123) 456-7890
+            <span className="font-bold"> Telephone: </span>
+            {data[0].tel}
           </address>
         </div>
         <div className="w-40">
           <address className="text-sm">
-            <span className="font-bold">Date Inspection :</span>
-            Joe doe
-            800 Folsom Ave
-            San Francisco, CA 94107
-            P: + 111-456-7890
+            <span className="font-bold"> Date: </span>
+            {// get date from js
+              new Date().toLocaleDateString()
+
+            
+            }
           </address>
         </div>
+        
+        
         <div />
       </div>
       <div className="flex justify-center p-4">
         <div className="border-b border-gray-200 shadow">
+        <h1 style={{fontSize:"2rem"}}>Sujet : {data[0].sujet}</h1>
+
           <table className>
             <thead className="bg-gray-50">
               <tr>
@@ -75,136 +102,64 @@ const SoumissionPdf = (props) => {
                   Description
                 </th>
                 <th className="px-4 py-2 text-xs text-gray-500 ">
-                  Unité 
+                  Pièces 
                 </th>
                 <th className="px-4 py-2 text-xs text-gray-500 ">
-                  Prix
+                  Main D'oeuvre
                 </th>
                 <th className="px-4 py-2 text-xs text-gray-500 ">
-                  Montant
+                  Total
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white">
-              <tr className="whitespace-nowrap">
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  1
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900">
-                    Amazon Brand - Symactive Men's Regular Fit T-Shirt
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-500">4</div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  $20
-                </td>
-                <td className="px-6 py-4">
-                  $30
-                </td>
-              </tr>
-              <tr className="whitespace-nowrap">
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  1
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900">
-                    Amazon Brand - Symactive Men's Regular Fit T-Shirt
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-500">4</div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  $20
-                </td>
-                <td className="px-6 py-4">
-                  $30
-                </td>
-              </tr>
-              <tr className="whitespace-nowrap">
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  2
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900">
-                    Amazon Brand - Symactive Men's Regular Fit T-Shirt
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-500">2</div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  $60
-                </td>
-                <td className="px-6 py-4">
-                  $12
-                </td>
-              </tr>
-              <tr className="border-b-2 whitespace-nowrap">
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  3
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900">
-                    Amazon Brand - Symactive Men's Regular Fit T-Shirt
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm text-gray-500">1</div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  $10
-                </td>
-                <td className="px-6 py-4">
-                  $13
-                </td>
-              </tr>
+              {soumissionItems.map((item, index) => (
+                 <tr className="whitespace-nowrap">
+                 <td className="px-6 py-4 text-sm text-gray-500">
+                   {item.id}
+                 </td>
+                 <td className="px-6 py-4">
+                   <div className="text-sm text-gray-900">
+                    {item.descri}
+                   </div>
+                 </td>
+                 <td className="px-6 py-4">
+                   <div className="text-sm text-gray-500">  {item.pieces}</div>
+                 </td>
+                 <td className="px-6 py-4 text-sm text-gray-500">
+                 {item.oeuvre}
+                 </td>
+                 <td className="px-6 py-4">
+                 {item.total}
+                 </td>
+               </tr>))  
+                }
+           
+           
+          
               <tr className>
                 <td colSpan={3} />
                 <td className="text-sm font-bold">Sous Total</td>
                 <td className="text-sm font-bold tracking-wider"><b>$950</b></td>
               </tr>
               {/*end tr*/}
-              <tr>
-                <th colSpan={3} />
-                <td className="text-sm font-bold"><b>Tps 5%</b></td>
-                <td className="text-sm font-bold"><b>$1.50</b></td>
-              </tr>
-              <tr>
-                <th colSpan={3} />
-                <td className="text-sm font-bold"><b>TVQ 9%</b></td>
-                <td className="text-sm font-bold"><b>$1.5</b></td>
-              </tr>
-              {/*end tr*/}
-              <tr className="text-white bg-gray-800">
-                <th colSpan={3} />
-                <td className="text-sm font-bold"><b>Total</b></td>
-                <td className="text-sm font-bold"><b>$999.0</b></td>
-              </tr>
+          
               {/*end tr*/}
             </tbody>
           </table>
         </div>
       </div>
       <div className="w-full h-0.5 bg-indigo-500" />
-      <div className="p-4">
-        <div className="flex items-center justify-center">
-          Thank you very much for doing business with us.
-        </div>
-        <div className="flex items-end justify-end space-x-3">
-          <button className="px-4 py-2 text-sm text-green-600 bg-green-100">Print</button>
-          <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">Save</button>
-          <button className="px-4 py-2 text-sm text-red-600 bg-red-100">Cancel</button>
-        </div>
-      </div>
     </div>
   </div>
 
 </div>
-
+<div className="p-4">
+            <div className="flex items-end justify-end space-x-3">
+              <button className="px-4 py-2 text-sm text-green-600 bg-green-100" onClick={(e)=>{e.preventDefault() ; handlePrint()}}>Download pdf</button>
+            </div>
+          </div>
+</>
 
 
   );

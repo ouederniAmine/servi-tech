@@ -8,7 +8,7 @@ const InspectionPdf = () => {
   // get data from axios
   const [data, setData] = useState([{ "id": 1, "num_facture": 1, "nom_client": "Mohamed amine", "adresse": "tunis", "date_inspection": "El Ouederni", "appareil": "Mohamed amine", "emplacement": "El Ouederni", "capacite": "Mohamed amine", "palan": "El Ouederni", "manufacturier": "Mohamed amine", "model": "El Ouederni", "serie": "Mohamed amine", "chaine": "El Ouederni", "hauteur": "0", "charriot": "0", "commande_par": "Mohamed amine", "vp": "", "vc": "", "inscpecte_par": "El Ouederni" }]);
   // state InspectionItems
-  const [inspectionItems, setInspectionItems] = useState([]);
+const [image , setImage] = useState("")
   useEffect(() => {
     const fetchData = async () => {
       // get the id from the url
@@ -16,11 +16,12 @@ const InspectionPdf = () => {
       const result = await axios(
         `/backend/api/inspections/${inspectionid}`,
       );
-      const inspectionItems = await axios(
-        `/backend/api/inspection_item/${inspectionid}`,
+    
+      const inspections = await axios(
+        `/backend/api/inspection_tables/${inspectionid}`,
       );
-      setInspectionItems(inspectionItems.data);
       setData(result.data);
+      setImage(inspections.data[0].data)
     };
     fetchData();
   }, []);
@@ -63,6 +64,7 @@ const InspectionPdf = () => {
             </div>
           </div>
           <div className="w-full h-0.5 bg-indigo-500" />
+          <h1  style={{marginLeft:"200px"}} className="text-xl font-bold ">Rapport D'inspection selon les spécifications du manufacturier</h1>
           <div className="flex justify-between p-4">
             <div>
               <h6 className="font-bold">Numero de facture : <span className="text-sm font-medium"> {data[0].num_facture}</span></h6>
@@ -84,6 +86,7 @@ const InspectionPdf = () => {
           </div>
           <div className="flex justify-between p-4">
             <h1>Inspecté par :  {data[0].inscpecte_par}</h1></div>
+            <div className="flex">
           <div className="flex justify-center p-4">
             <div className="border-b border-gray-200 shadow">
               <table className>
@@ -228,56 +231,10 @@ const InspectionPdf = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div></div>
           <div className="flex justify-center p-4">
             <div className="border-b border-gray-200 shadow">
-              <table className>
-                <thead className="bg-gray-50">
-                  <tr>
-
-                    <th className="px-4 py-2 text-xs text-gray-500 ">
-                      Nom  
-                    </th>
-                    <th className="px-4 py-2 text-xs text-gray-500 ">
-                      Palan
-                    </th>
-                    <th className="px-4 py-2 text-xs text-gray-500 ">
-                      Charriot
-                    </th>
-                    <th className="px-4 py-2 text-xs text-gray-500 ">
-                      Pont
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white">
-                 
-                  {inspectionItems.map((item) => (
-                     <tr className="whitespace-nowrap">
-
-                     <td className="px-6 py-4">
-                       <div className="text-sm text-gray-900">
-                         {inspectionItems[0].nom}
-                       </div>
-                     </td>
-                     <td className="px-6 py-4">
-                       <div className="text-sm text-gray-500"> {inspectionItems[0].palan}</div>
-                     </td>
-                     <td className="px-6 py-4 text-sm text-gray-500">
-                     {inspectionItems[0].chariot}
-                     </td>
-                     <td className="px-6 py-4 text-sm text-gray-500" >
-                     {inspectionItems[0].pont}
-                     </td>
-                   </tr>
-                  ))  
-
-                        }
-
-
-
-
-                </tbody>
-              </table>
+             <img src={image} style={{width:"750px"}} alt="hey"></img>
             </div>
           </div>
           <div className="w-full h-0.5 bg-indigo-500" />

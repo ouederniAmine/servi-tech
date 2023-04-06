@@ -123,9 +123,7 @@ const InspectionsTable = (props) => {
             <Link to={"/app/inspections/"+params.row.id }style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <Link to={"/app/inspections/edit/"+params.row.id }style={{ textDecoration: "none" }}>
-              <div className="viewButton">Edit</div>
-            </Link>
+           
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}

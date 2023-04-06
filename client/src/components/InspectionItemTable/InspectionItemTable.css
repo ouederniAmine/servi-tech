@@ -11,6 +11,44 @@
     align-items: center;
     justify-content: space-between;
 }
+ table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+        th, td {
+          border: 1px solid black;
+          padding: 8px;
+          text-align: left;
+          vertical-align: top;
+        }
+        th {
+          background-color: #ddd;
+          font-weight: bold;
+        }
+        h2 {
+          font-size: 24px;
+          margin-top: 40px;
+          margin-bottom: 10px;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .image {
+            width: 50%;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        #p {
+            width: 50%;
+            height: 300px;
+            font-size: 16px;
+            padding: 10px;
+            font-size: 50px;
+        }
 .datatable .datatableTitle .link {
     text-decoration: none;
     color: green;

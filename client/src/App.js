@@ -23,7 +23,7 @@ import NewSoumission from './pages/NewSoumission/NewSoumission';
 import NewInspection from './pages/newInspection/newInspection';
 import FacturesPage from './pages/FacturePage/FacturePage';
 import NewFactureItem from './pages/NewFactureItem/NewFactureItem';
-import NewInspectionItem from './pages/NewInspectionItem/NewInspectionItem';
+import NewSoumissionItem from './pages/NewSoumissionItem/NewSoumissionItem';
 import ViewFacture from './pages/pdfPages/viewFacture';
 import ViewCertification from './pages/pdfPages/viewCertification';
 import ViewSoumission from './pages/pdfPages/viewSoumission';
@@ -52,12 +52,8 @@ export default function App() {
               <Route
                 path="new/:id"
                 element={<NewInspection  />}/>
-                <Route
-                path="new/:id/newItem"
-                element={<NewInspectionItem  />}/>
-                <Route
-                path="edit/:id/newItem"
-                element={<NewInspectionItem  />}/>
+               
+               
                 <Route path=":userId" element={<ViewInspection />} />
 
                 <Route
@@ -75,11 +71,18 @@ export default function App() {
               />
                 
               <Route
-                path="new"
+                path="new/:id"
                 element={<NewSoumission  />}/>
                 <Route
                 path="csv"
                 element={<ImportCsv  />}/>
+               <Route
+                path="new/:id/newItem"
+                element={<NewSoumissionItem  />}/>
+ <Route
+                path="edit/:userId/newItem"
+                element={<NewSoumissionItem   />}
+              />
               <Route path=":userId" element={<ViewSoumission />} /></Route> 
 
                <Route path="/app/certifications">

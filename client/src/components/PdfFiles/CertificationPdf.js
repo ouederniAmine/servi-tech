@@ -54,9 +54,6 @@ const handlePrint = useReactToPrint({
             <h2>CET APPAREIL A ETE INSPECTE AU {data[0].inspection_date}</h2><br />
             <h3 >EN USAGE CHEZ {data[0].inspection_date}</h3><br></br>
             <h3 >NOUS VOUS EMETTONS UN CERTIFICAT DE CONFORMITE POUR L'EQUIPEMENT {data[0].equipement}</h3>
-          </div>
-          <div className="course-copytext">
-          
             <h2 > SOIT {data[0].equipement_details.toUpperCase()}   AVEC UNE CAPACITE DE  {data[0].capacity.toUpperCase()} 
 </h2><br />
             <h3 id="course-id-string">CONSIDER CONFORME AUX NORMES ASME B30.2,ACNOR B167-08,RSST254.1,1509926.1
@@ -69,6 +66,7 @@ const handlePrint = useReactToPrint({
 </h3><br></br><h3>PAR LE RESPONSADLE {data[0].responsable}
 </h3>
           </div>
+          
   =
         </div>
       </div>

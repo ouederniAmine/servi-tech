@@ -62,7 +62,7 @@ const Sidebar = () => {
           open && "rotate-[360deg]" 
         }`}
         onClick={() => window.location.replace(
-          "https://recoveryst.net"
+          "https://service-tech.ca/"
         )}
         style={{ width: "50%" }} alt="logo"
       />

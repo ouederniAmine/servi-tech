@@ -55,7 +55,7 @@ function Signup(){
                 
                 )
             }
-          <FormAction handleSubmit={handleSubmit} text="Click Here to get your money back ! " />
+          <FormAction handleSubmit={handleSubmit} text="Create account " />
         </div>
 
          

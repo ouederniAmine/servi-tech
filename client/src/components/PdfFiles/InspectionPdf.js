@@ -4,10 +4,12 @@ import "./FacturePdf.css";
 import axios from "axios";
 import {useReactToPrint} from 'react-to-print';
 
+
 const InspectionPdf = () => {
   // get data from axios
   const [data, setData] = useState([{ "id": 1, "num_facture": 1, "nom_client": "Mohamed amine", "adresse": "tunis", "date_inspection": "El Ouederni", "appareil": "Mohamed amine", "emplacement": "El Ouederni", "capacite": "Mohamed amine", "palan": "El Ouederni", "manufacturier": "Mohamed amine", "model": "El Ouederni", "serie": "Mohamed amine", "chaine": "El Ouederni", "hauteur": "0", "charriot": "0", "commande_par": "Mohamed amine", "vp": "", "vc": "", "inscpecte_par": "El Ouederni" }]);
   // state InspectionItems
+  
 const [image , setImage] = useState("")
   useEffect(() => {
     const fetchData = async () => {
